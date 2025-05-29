@@ -8,14 +8,16 @@ import java.awt.event.ItemListener;
 
 public class TempAppFrame extends JFrame implements ItemListener, ActionListener {
 
-    JButton convert = new JButton("Convert");
+    private JButton convert = new JButton("Convert");
     private static JTextField valueText = new JTextField();
 
-    JLabel fromText = new JLabel("From: ");
-    JLabel toText = new JLabel("To: ");
+    private JLabel fromText = new JLabel("From: ");
+    private JLabel toText = new JLabel("To: ");
+    private JLabel answerLabel = new JLabel("Answer: ");
+    private JLabel answerText = new JLabel();
 
-    Options o1 = new Options();
-    Options o2 = new Options();
+    private Options o1 = new Options();
+    private Options o2 = new Options();
 
     private static final String[] userChoices = new String[2];
 
@@ -24,27 +26,34 @@ public class TempAppFrame extends JFrame implements ItemListener, ActionListener
         Border labelBorder = BorderFactory.createLineBorder(Color.black);
 
         // Label and temp selection for "FROM" text
-
         fromText.setFont(font);
         fromText.setBorder(labelBorder);
         fromText.setBounds(10, 10, 80, 25);
-
         o1.setBounds(100, 10, 200, 25);
 
         // Label and temp selection for "TO" text
-
         toText.setFont(font);
         toText.setBorder(labelBorder);
         toText.setBounds(10, 40, 80, 25);
-
         o2.setBounds(100, 40, 200, 25);
 
+        // Answer Label
+        answerLabel.setFont(font);
+        answerLabel.setBorder(labelBorder);
+        answerLabel.setBounds(10, 150, 100, 25);
+
+        answerText.setFont(font);
+        answerText.setBorder(labelBorder);
+        answerText.setBounds(10, 180, 200, 50);
+
+        // User input settings
         valueText.setBorder(labelBorder);
         valueText.setFont(font);
         valueText.setBorder(labelBorder);
         valueText.setBounds(100, 80, 200, 25);
         valueText.setEditable(true);
 
+        // Convert button settings
         convert.setFont(font);
         convert.addActionListener(this);
         convert.setFocusable(false);
@@ -52,16 +61,17 @@ public class TempAppFrame extends JFrame implements ItemListener, ActionListener
 
         // Adds label for "From" and "To", and options menu;
         this.add(fromText);
-        this.add(o1);
         this.add(toText);
+        this.add(o1);
         this.add(o2);
         this.add(valueText);
         this.add(convert);
+        this.add(answerLabel);
+        this.add(answerText);
 
         // Settings for the frame
         ImageIcon icon = new ImageIcon("temperature.png");
         this.setIconImage(icon.getImage());
-
         this.setTitle("Temperature Converter");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400, 300);
@@ -81,7 +91,10 @@ public class TempAppFrame extends JFrame implements ItemListener, ActionListener
         if (e.getSource() == convert) {
             userChoices[0] = o1.getSelectedItem().toString().charAt(0) + "";
             userChoices[1] = o2.getSelectedItem().toString().charAt(0) + "";
-            System.out.println(getTemp());
+
+            String ans = String.valueOf(getTemp());
+            answerText.setText(ans);
+
         }
     }
 

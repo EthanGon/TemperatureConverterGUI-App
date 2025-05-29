@@ -22,8 +22,6 @@ public class TempMaf {
             return  (fahrenheit + 459.67) * ((double) 5 /9);
         }
 
-
-
     }
 
     public static double kelvinConvert(double kelvin, String convertTo) {
