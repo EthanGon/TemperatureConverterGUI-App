@@ -9,10 +9,15 @@ import java.awt.event.ItemListener;
 public class TempAppFrame extends JFrame implements ItemListener, ActionListener {
 
     JButton convert = new JButton("Convert");
-    JTextField valueText = new JTextField();
+    private static JTextField valueText = new JTextField();
 
     JLabel fromText = new JLabel("From: ");
     JLabel toText = new JLabel("To: ");
+
+    Options o1 = new Options();
+    Options o2 = new Options();
+
+    private static final String[] userChoices = new String[2];
 
     public TempAppFrame() {
         Font font = new Font("Serif", Font.BOLD, 25);
@@ -22,8 +27,8 @@ public class TempAppFrame extends JFrame implements ItemListener, ActionListener
 
         fromText.setFont(font);
         fromText.setBorder(labelBorder);
-        Options o1 = new Options();
         fromText.setBounds(10, 10, 80, 25);
+
         o1.setBounds(100, 10, 200, 25);
 
         // Label and temp selection for "TO" text
@@ -31,7 +36,7 @@ public class TempAppFrame extends JFrame implements ItemListener, ActionListener
         toText.setFont(font);
         toText.setBorder(labelBorder);
         toText.setBounds(10, 40, 80, 25);
-        Options o2 = new Options();
+
         o2.setBounds(100, 40, 200, 25);
 
         valueText.setBorder(labelBorder);
@@ -39,7 +44,7 @@ public class TempAppFrame extends JFrame implements ItemListener, ActionListener
         valueText.setBorder(labelBorder);
         valueText.setBounds(100, 80, 200, 25);
         valueText.setEditable(true);
-        
+
         convert.setFont(font);
         convert.addActionListener(this);
         convert.setFocusable(false);
@@ -52,7 +57,6 @@ public class TempAppFrame extends JFrame implements ItemListener, ActionListener
         this.add(o2);
         this.add(valueText);
         this.add(convert);
-
 
         // Settings for the frame
         ImageIcon icon = new ImageIcon("temperature.png");
@@ -75,11 +79,20 @@ public class TempAppFrame extends JFrame implements ItemListener, ActionListener
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == convert) {
-            System.out.println("Convert button pressed");
-            String from = valueText.getText();
-            String to = valueText.getText();
-            System.out.println("From: " + from);
-            System.out.println("To: " + to);
+            userChoices[0] = o1.getSelectedItem().toString().charAt(0) + "";
+            userChoices[1] = o2.getSelectedItem().toString().charAt(0) + "";
+            System.out.println(getTemp());
+        }
+    }
+
+    public static double getTemp() {
+        if (userChoices[0].equals("C")) {
+            return TempMaf.celsiusConvert(Double.parseDouble(valueText.getText()), userChoices[1]);
+
+        } else if (userChoices[0].equals("F")) {
+            return TempMaf.fahrenheitConvert(Double.parseDouble(valueText.getText()), userChoices[1]);
+        } else {
+            return TempMaf.kelvinConvert(Double.parseDouble(valueText.getText()), userChoices[1]);
         }
     }
 
