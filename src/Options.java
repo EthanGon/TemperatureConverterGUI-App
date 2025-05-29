@@ -11,11 +11,14 @@ public class Options extends JComboBox implements ItemListener {
         this.addItem(options[2]);
 
         this.addItemListener((ItemListener) this);
-        this.setBounds(10, 10, 100, 20);
     }
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             System.out.println(e.getItem().toString());
         }
     }
+
+
+
+
 }
